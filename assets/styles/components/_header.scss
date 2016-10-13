@@ -1,0 +1,54 @@
+.header {
+  @include clearfix;
+
+  .top-bar {
+    background: $col-blue;
+    padding: 0;
+  }
+
+  .top-bar-right {
+    float: right;
+    margin: 0;
+  }
+}
+
+.header-link {
+  display: inline-block;
+  float: left;
+  padding: $page-margin;
+  text-decoration: none;
+  cursor: pointer;
+  background: $col-blue;
+  @include no-tap-highlight;
+  @include link-hover-anim;
+
+  &,
+  &:active,
+  &:visited {
+    color: $col-white;
+  }
+
+  &:hover {
+    background: darken($col-blue, 10%);
+  }
+}
+.header-link--secondary {
+  @extend .header-link;
+  background: $col-pink;
+
+  &:hover {
+    background: darken($col-pink, 10%);
+  }
+}
+
+.header-branding {
+  float: left;
+  margin-left: $page-margin;
+  margin-top: 1.65rem;
+
+  @include link-hover-anim;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,102 @@
+body, html {
+	font-family: $font-family-base;
+	position: static;
+	width: 100%;
+	min-height: 100%;
+	text-shadow: none;
+	@include font-smoothing;
+	filter: none;
+	margin: 0;
+	background: $col-light-grey;
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+* {
+	&:before, &:after {
+	  box-sizing: border-box;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+a:link,
+a:hover,
+a:active,
+a:visited {
+	text-decoration: none;
+	outline: none;
+	color: inherit;
+
+	@include no-tap-highlight();
+
+	&:focus {
+		text-decoration: none;
+		outline: none;
+	}
+}
+
+img {
+	display: inline-block;
+	border: 0;
+	margin: 0;
+	outline: 0;
+}
+
+p, a, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="text"],
+input[type="email"] {
+	@include appearance(none);
+	@include no-tap-highlight();
+  outline: 0;
+  border: 0;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="url"] {
+	color: $col-dark-grey;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+	@include user-select(none);
+	background: none;
+	padding: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  color: $col-dark-grey !important;
+  -webkit-text-fill-color: $col-dark-grey;
+}
+
+@include selection {
+  background-color: red;
+  color: $col-dark-grey;
+}

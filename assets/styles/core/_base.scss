@@ -55,7 +55,7 @@ input[type="button"],
 input[type="submit"],
 input[type="text"],
 input[type="email"] {
-	@include appearance(none);
+	appearance: none;
 	@include no-tap-highlight();
   outline: 0;
   border: 0;
@@ -73,17 +73,17 @@ input[type="number"],
 input[type="url"] {
 	color: $col-dark-grey;
   border-radius: 0;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 button,
 input[type="button"],
 input[type="submit"] {
-	@include user-select(none);
+	user-select: none;
 	background: none;
 	padding: 0;
   border-radius: 0;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 input:-webkit-autofill,
@@ -94,9 +94,4 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   color: $col-dark-grey !important;
   -webkit-text-fill-color: $col-dark-grey;
-}
-
-@include selection {
-  background-color: red;
-  color: $col-dark-grey;
 }

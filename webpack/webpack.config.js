@@ -3,6 +3,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // project folder
 var root_folder = path.resolve(__dirname, '..')
@@ -28,7 +29,7 @@ var configuration =
 		main: './code/client/application.entry.js'
 	},
 
-	output: 
+	output:
 	{
 		// filesystem path for static files
 		path: path.resolve(root_folder, 'build/assets'),
@@ -45,7 +46,7 @@ var configuration =
 
 	module:
 	{
-		loaders: 
+		loaders:
 		[
 			{
 				test   : /\.json$/,
@@ -55,22 +56,22 @@ var configuration =
 				test    : regular_expressions.javascript,
 				// include: [path.resolve(root_folder, 'code')],
 				// exclude: path.resolve(root_folder, 'node_modules'),
-				exclude: /node_modules/,
+				exclude: [/node_modules/],
 				loader: 'babel-loader'
 			},
 			{
-				test    : regular_expressions.styles,
-				loaders : 
-				[
-					'style-loader',
-					'css-loader?importLoaders=2&sourceMap',
-					'postcss-loader',
-					'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
-				]
-			},
+        // for some modules like foundation
+        test: /\.scss$/,
+        exclude: [/node_modules/], // sassLoader will include node_modules explicitly
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass-loader')
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+      },
 			{
 				test    : /\.(jpg|png)$/,
-				loaders : 
+				loaders :
 				[
 					'url-loader?limit=10000' // Any png-image or woff-font below or equal to 10K will be converted to inline base64 instead
 				]
@@ -78,18 +79,26 @@ var configuration =
 		]
 	},
 
+	postcss: () => [autoprefixer({ browsers: 'last 2 version' })],
+
+	sassLoader: {
+		sourceMap: true,
+		outputStyle: 'expanded',
+    includePaths: [path.resolve(__dirname, 'node_modules')]
+  },
+
 	// maybe some kind of a progress bar during compilation
 	progress: true,
 
-	postcss: () => [autoprefixer({ browsers: 'last 2 version' })],
+	// resolve:
+	// {
+	// 	// you can now require('file') instead of require('file.[extension]')
+	// 	extensions: ['', '.json', '.js']
+	// },
 
-	resolve:
-	{
-		// you can now require('file') instead of require('file.[extension]')
-		extensions: ['', '.json', '.js']
-	},
-
-	plugins: []
+	plugins: [
+		new ExtractTextPlugin('style.css')
+	]
 }
 
 module.exports = configuration

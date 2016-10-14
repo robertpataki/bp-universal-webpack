@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Provider }                    from 'react-redux'
 
+import '../../assets/styles/style.scss'
+
 export default class Wrapper extends Component
 {
-	static propTypes = 
+	static propTypes =
 	{
 		store : React.PropTypes.object.isRequired
 	}
@@ -15,7 +17,7 @@ export default class Wrapper extends Component
 	{
 		const { store } = this.props
 
-		const markup = 
+		const markup =
 		(
 			<Provider store={store}>
 				{this.props.children}
